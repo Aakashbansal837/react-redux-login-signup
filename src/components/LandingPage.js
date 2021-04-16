@@ -1,6 +1,6 @@
 import React from "react";
 
-const SignIn = () => {
+const LandingPage = () => {
   // true if signIn , false if signup
   const [loginView, setLoginView] = React.useState(true);
   // label focus
@@ -360,4 +360,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default LandingPage;
