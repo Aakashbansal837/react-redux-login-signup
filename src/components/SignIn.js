@@ -11,10 +11,6 @@ const SignIn = (props) => {
   // label focus
   const [focusInput, setFocusInput] = React.useState(false);
 
-  // error states
-  const [emailError, setEmailError] = React.useState(false);
-  const [passwordError, setPasswordError] = React.useState(false);
-
   const validateInput = () => {
     if (email == "" && password == "") {
       setFocusInput(false);
