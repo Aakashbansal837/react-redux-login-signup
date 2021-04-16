@@ -1,4 +1,7 @@
 import React from "react";
+import Brand from "./Brand";
+import SignIn from "./SignIn";
+import SignUp from "./SignUp";
 
 const LandingPage = () => {
   // true if signIn , false if signup
@@ -181,176 +184,18 @@ const LandingPage = () => {
     <div className="container">
       <section id="formHolder">
         <div className="row">
-          {/* <!-- Brand Box --> */}
-          <div className="col-sm-6 brand">
-            <a href="#" className="logo">
-              Made By
-              {/* <span>.</span> */}
-            </a>
-
-            <div className="heading">
-              <h2>Aakash</h2>
-              <p> ( SignUp / SignIn ) via Redux</p>
-            </div>
-
-            <div className="success-msg">
-              <p>Great! You are one of our members now</p>
-              <a href="#" className="profile" onClick={() => reloadPage()}>
-                Your Profile
-              </a>
-            </div>
-          </div>
-
-          {/* <!-- Form Box --> */}
+          <Brand reloadPage={reloadPage} />
           <div className="col-sm-10 col-md-6 form">
-            {/* <!-- Login Form --> */}
-            <div
-              className={"login form-peice" + (loginView ? " " : " switched")}
-            >
-              <form className="login-form">
-                <div className="form-group">
-                  <label
-                    className={focusInput ? "active" : ""}
-                    for="loginemail"
-                  >
-                    Email Adderss
-                  </label>
-                  <input
-                    onFocus={() => setFocusInput(true)}
-                    onBlur={() => validateInput()}
-                    type="email"
-                    name="loginemail"
-                    id="loginemail"
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label
-                    className={focusInput ? "active" : ""}
-                    for="loginPassword"
-                  >
-                    Password
-                  </label>
-                  <input
-                    onFocus={() => setFocusInput(true)}
-                    onBlur={() => validateInput()}
-                    type="password"
-                    name="loginPassword"
-                    id="loginPassword"
-                    required
-                  />
-                </div>
-
-                <div className="CTA">
-                  <input
-                    onClick={() => submitForm()}
-                    type="button"
-                    value="Login"
-                  />
-                  <a onClick={() => setLoginView(false)} className="switch">
-                    I'm New
-                  </a>
-                </div>
-              </form>
-            </div>
-            {/* <!-- End Login Form --> */}
-
-            {/* <!-- Signup Form --> */}
-            <div
-              className={"signup form-peice" + (!loginView ? " " : " switched")}
-            >
-              <form className="signup-form">
-                <div className="form-group">
-                  <label className={focusInput ? "active" : ""} for="name">
-                    Full Name
-                  </label>
-                  <input
-                    onFocus={() => setFocusInput(true)}
-                    onBlur={() => validateInput()}
-                    type="text"
-                    name="username"
-                    id="name"
-                    className="name"
-                  />
-                  <span className="error"></span>
-                </div>
-
-                <div className="form-group">
-                  <label className={focusInput ? "active" : ""} for="email">
-                    Email Adderss
-                  </label>
-                  <input
-                    onFocus={() => setFocusInput(true)}
-                    onBlur={() => validateInput()}
-                    type="email"
-                    name="emailAdress"
-                    id="email"
-                    className="email"
-                  />
-                  <span className="error"></span>
-                </div>
-
-                <div className="form-group">
-                  <label className={focusInput ? "active" : ""} for="phone">
-                    Phone Number - <small>Optional</small>
-                  </label>
-                  <input
-                    onFocus={() => setFocusInput(true)}
-                    onBlur={() => validateInput()}
-                    type="text"
-                    name="phone"
-                    id="phone"
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label className={focusInput ? "active" : ""} for="password">
-                    Password
-                  </label>
-                  <input
-                    onFocus={() => setFocusInput(true)}
-                    onBlur={() => validateInput()}
-                    type="password"
-                    name="password"
-                    id="password"
-                    className="pass"
-                  />
-                  <span className="error"></span>
-                </div>
-
-                <div className="form-group">
-                  <label
-                    className={focusInput ? "active" : ""}
-                    for="passwordCon"
-                  >
-                    Confirm Password
-                  </label>
-                  <input
-                    onFocus={() => setFocusInput(true)}
-                    onBlur={() => validateInput()}
-                    type="password"
-                    name="passwordCon"
-                    id="passwordCon"
-                    className="passConfirm"
-                  />
-                  <span className="error"></span>
-                </div>
-
-                <div className="CTA">
-                  <input
-                    onClick={() => submitForm()}
-                    type="button"
-                    value="Signup Now"
-                    id="submit"
-                  />
-                  <a onClick={() => setLoginView(true)} className="switch">
-                    I have an account
-                  </a>
-                </div>
-              </form>
-            </div>
-            {/* <!-- End Signup Form --> */}
+            <SignIn
+              loginView={loginView}
+              submitForm={submitForm}
+              setLoginView={setLoginView}
+            />
+            <SignUp
+              loginView={loginView}
+              submitForm={submitForm}
+              setLoginView={setLoginView}
+            />
           </div>
         </div>
       </section>
