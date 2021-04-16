@@ -5,6 +5,7 @@ import Profile from "./components/Profile";
 import { useSnackbar } from "notistack";
 import { useEffect } from "react";
 import { connect } from "react-redux";
+import { hideSnackbar } from "./redux/actions/snackbarAction";
 
 function App(props) {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -14,7 +15,7 @@ function App(props) {
         variant: props.snackbar_variant,
         autoHideDuration: 3000,
       });
-    } else {
+      props.hideSnackbar();
     }
   }, [props.show_snackbar]);
 
@@ -34,4 +35,4 @@ const mapStateToProps = (state) => ({
   snackbar_variant: state.snackbar.variant,
 });
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, { hideSnackbar })(App);
