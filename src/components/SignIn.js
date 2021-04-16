@@ -11,7 +11,7 @@ const SignIn = (props) => {
   // label focus
   const [focusInput, setFocusInput] = React.useState(false);
 
-  const validateInput = () => {
+  const updateLabelFocus = () => {
     if (email == "" && password == "") {
       setFocusInput(false);
     } else {
@@ -56,7 +56,7 @@ const SignIn = (props) => {
           </label>
           <input
             onFocus={() => setFocusInput(true)}
-            onBlur={() => validateInput()}
+            onBlur={() => updateLabelFocus()}
             onChange={(e) => setEmail(e.target.value)}
             type="email"
             name="loginemail"
@@ -71,7 +71,7 @@ const SignIn = (props) => {
           </label>
           <input
             onFocus={() => setFocusInput(true)}
-            onBlur={() => validateInput()}
+            onBlur={() => updateLabelFocus()}
             onChange={(e) => setPassword(e.target.value)}
             type="password"
             name="loginPassword"
