@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { signInUser } from "../redux/actions/userAction";
+import { showSnackbar } from "../redux/actions/snackbarAction";
 
 const SignIn = (props) => {
   // user data
@@ -15,24 +16,37 @@ const SignIn = (props) => {
   const [passwordError, setPasswordError] = React.useState(false);
 
   const validateInput = () => {
-    if (true) {
+    if (email == "" && password == "") {
       setFocusInput(false);
     } else {
-      setFocusInput(false);
+      setFocusInput(true);
     }
   };
 
   useEffect(() => {
     if (props.is_logged_in) {
-      // props.activateProfile();
+      props.activateProfile();
     }
   }, [props.is_logged_in]);
+
+  function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
   const submitForm = () => {
-    let data = {
-      email,
-      password,
-    };
-    props.signInUser(data);
+    if (email === "") {
+      props.showSnackbar({ message: "EMPTY EMAIL", variant: "error" });
+    } else if (!validateEmail(email)) {
+      props.showSnackbar({ message: "INVALID EMAIL", variant: "error" });
+    } else if (password === "") {
+      props.showSnackbar({ message: "EMPTY PASSWORD", variant: "error" });
+    } else {
+      let data = {
+        email: email,
+        password: password,
+      };
+      props.signInUser(data);
+    }
   };
   const setLoginView = (value) => {
     props.setLoginView(value);
@@ -47,6 +61,7 @@ const SignIn = (props) => {
           <input
             onFocus={() => setFocusInput(true)}
             onBlur={() => validateInput()}
+            onChange={(e) => setEmail(e.target.value)}
             type="email"
             name="loginemail"
             id="loginemail"
@@ -61,6 +76,7 @@ const SignIn = (props) => {
           <input
             onFocus={() => setFocusInput(true)}
             onBlur={() => validateInput()}
+            onChange={(e) => setPassword(e.target.value)}
             type="password"
             name="loginPassword"
             id="loginPassword"
@@ -84,6 +100,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = {
   signInUser,
+  showSnackbar,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
