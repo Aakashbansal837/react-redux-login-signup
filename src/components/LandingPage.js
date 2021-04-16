@@ -40,7 +40,7 @@ const LandingPage = (props) => {
 
   return (
     <React.Fragment>
-      {props.is_logged_in ? (
+      {props.view_profile ? (
         <Profile />
       ) : (
         <div className="container">
@@ -69,6 +69,7 @@ const LandingPage = (props) => {
 
 const mapStateToProps = (state) => ({
   is_logged_in: state.user.is_logged_in,
+  view_profile: state.user.view_profile,
 });
 const mapDispatchToProps = {
   showSnackbar,
