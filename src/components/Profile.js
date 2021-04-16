@@ -122,7 +122,11 @@ const Profile = () => {
             </div>
           </div>
           <div className="col-sm-6 brand text-right">
-            <a className="logo" onClick={() => logoutClicked()}>
+            <a
+              style={{ cursor: "pointer" }}
+              className="logo"
+              onClick={() => logoutClicked()}
+            >
               Logout
             </a>
 
