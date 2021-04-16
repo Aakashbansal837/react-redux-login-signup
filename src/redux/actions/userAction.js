@@ -76,3 +76,16 @@ export const signOutUser = (value) => (dispatch) => {
   });
   dispatch({ type: "LOGOUT_USER" });
 };
+
+export const viewProfile = (value) => (dispatch) => {
+  dispatch({
+    type: "SHOW_SNACKBAR",
+    message: "SHOWING USER PROFILE",
+    variant: "info",
+  });
+  dispatch({ type: "VIEW_PROFILE" });
+};
+
+export const closeProfile = (value) => (dispatch) => {
+  dispatch({ type: "CLOSE_PROFILE" });
+};
