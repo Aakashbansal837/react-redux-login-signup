@@ -12,6 +12,10 @@ function App(props) {
   useEffect(() => {
     if (props.show_snackbar) {
       enqueueSnackbar(props.snackbar_message, {
+        anchorOrigin: {
+          vertical: "bottom",
+          horizontal: "center",
+        },
         variant: props.snackbar_variant,
         autoHideDuration: 3000,
       });
