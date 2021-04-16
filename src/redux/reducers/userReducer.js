@@ -4,10 +4,12 @@ const initialState = {
   is_logged_in: false,
 };
 
-const signIn = (state = initialState, action) => {
+const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "LOGIN_USER":
-      return { ...state };
+    case "NEW_USER":
+      let tmp_user = state.users;
+      tmp_user.push(action.value);
+      return { ...state, users: tmp_user };
     case "LOGOUT_USER":
       return {
         ...state,
@@ -17,4 +19,4 @@ const signIn = (state = initialState, action) => {
   }
 };
 
-export default signIn;
+export default userReducer;
