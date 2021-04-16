@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { createNewUser } from "../redux/actions/userAction";
 
 const SignUp = (props) => {
+  // user State
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   // label focus
   const [focusInput, setFocusInput] = React.useState(false);
 
   // error states
-  const [usernameError, setUserNameError] = React.useState(false);
-  const [emailError, setEmailError] = React.useState(false);
-  const [passwordError, setPasswordError] = React.useState(false);
-  const [passConfirm, setPassConfirm] = React.useState(false);
+  const [usernameError, setUserNameError] = React.useState("");
+  const [emailError, setEmailError] = React.useState("");
+  const [passwordError, setPasswordError] = React.useState("");
 
   const validateInput = () => {
     document.querySelector("input").blur(function () {
@@ -104,7 +111,6 @@ const SignUp = (props) => {
           .fadeIn()
           .parent(".form-group")
           .classList.add("hasError");
-        passConfirm = false;
       } else {
         document
           .querySelector(".passConfirm")
@@ -113,7 +119,6 @@ const SignUp = (props) => {
           .fadeOut()
           .parent(".form-group")
           .removeClass("hasError");
-        passConfirm = false;
       }
 
       // label effect
@@ -131,7 +136,14 @@ const SignUp = (props) => {
   };
 
   const submitForm = () => {
-    props.activateProfile();
+    let data = {
+      userName,
+      email,
+      password,
+    };
+    console.log("data :", data);
+    props.createNewUser(data);
+    // props.activateProfile();
   };
   const setLoginView = (value) => {
     props.setLoginView(value);
@@ -149,6 +161,7 @@ const SignUp = (props) => {
           <input
             onFocus={() => setFocusInput(true)}
             onBlur={() => validateInput()}
+            onChange={(e) => setUserName(e.target.value)}
             type="text"
             name="username"
             id="name"
@@ -164,6 +177,7 @@ const SignUp = (props) => {
           <input
             onFocus={() => setFocusInput(true)}
             onBlur={() => validateInput()}
+            onChange={(e) => setEmail(e.target.value)}
             type="email"
             name="emailAdress"
             id="email"
@@ -173,25 +187,13 @@ const SignUp = (props) => {
         </div>
 
         <div className="form-group">
-          <label className={focusInput ? "active" : ""} htmlFor="phone">
-            Phone Number - <small>Optional</small>
-          </label>
-          <input
-            onFocus={() => setFocusInput(true)}
-            onBlur={() => validateInput()}
-            type="text"
-            name="phone"
-            id="phone"
-          />
-        </div>
-
-        <div className="form-group">
           <label className={focusInput ? "active" : ""} htmlFor="password">
             Password
           </label>
           <input
             onFocus={() => setFocusInput(true)}
             onBlur={() => validateInput()}
+            onChange={(e) => setPassword(e.target.value)}
             type="password"
             name="password"
             id="password"
@@ -207,16 +209,20 @@ const SignUp = (props) => {
           <input
             onFocus={() => setFocusInput(true)}
             onBlur={() => validateInput()}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             type="password"
             name="passwordCon"
             id="passwordCon"
             className="passConfirm"
           />
-          <span className="error"></span>
+          <span className="error">
+            {password !== confirmPassword ? "Passwords don't match" : null}
+          </span>
         </div>
 
         <div className="CTA">
           <input
+            onFocus={() => setFocusInput(true)}
             onClick={() => submitForm()}
             type="button"
             value="Signup Now"
@@ -231,4 +237,11 @@ const SignUp = (props) => {
   );
 };
 
-export default SignUp;
+const mapStateToProps = (state) => ({
+  userName: state.user.userName,
+});
+const mapDispatchToProps = {
+  createNewUser,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
