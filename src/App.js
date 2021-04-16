@@ -27,7 +27,7 @@ function App(props) {
     <div className="App">
       <Router>
         <Route exact path="/" component={LandingPage}></Route>
-        <Route exact path="/profile" component={Profile}></Route>
+        {/* <Route exact path="/profile" component={Profile}></Route> */}
       </Router>
     </div>
   );
