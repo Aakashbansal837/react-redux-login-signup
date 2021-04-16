@@ -1,9 +1,12 @@
 import React from "react";
+import { connect } from "react-redux";
+import { showSnackbar } from "../redux/actions/snackbarAction";
 import Brand from "./Brand";
+import Profile from "./Profile";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 
-const LandingPage = () => {
+const LandingPage = (props) => {
   // true if signIn , false if signup
   const [loginView, setLoginView] = React.useState(true);
 
@@ -36,26 +39,39 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="container">
-      <section id="formHolder">
-        <div className="row">
-          <Brand />
-          <div className="col-sm-10 col-md-6 form">
-            <SignIn
-              loginView={loginView}
-              activateProfile={activateProfile}
-              setLoginView={setLoginView}
-            />
-            <SignUp
-              loginView={loginView}
-              activateProfile={activateProfile}
-              setLoginView={setLoginView}
-            />
-          </div>
+    <React.Fragment>
+      {props.is_logged_in ? (
+        <Profile />
+      ) : (
+        <div className="container">
+          <section id="formHolder">
+            <div className="row">
+              <Brand />
+              <div className="col-sm-10 col-md-6 form">
+                <SignIn
+                  loginView={loginView}
+                  activateProfile={activateProfile}
+                  setLoginView={setLoginView}
+                />
+                <SignUp
+                  loginView={loginView}
+                  activateProfile={activateProfile}
+                  setLoginView={setLoginView}
+                />
+              </div>
+            </div>
+          </section>
         </div>
-      </section>
-    </div>
+      )}
+    </React.Fragment>
   );
 };
 
-export default LandingPage;
+const mapStateToProps = (state) => ({
+  is_logged_in: state.user.is_logged_in,
+});
+const mapDispatchToProps = {
+  showSnackbar,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LandingPage);
