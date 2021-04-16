@@ -1,7 +1,9 @@
 section#formHolder {
   padding: 50px 0;
 }
-
+.text-right {
+  text-align: right;
+}
 .brand {
   padding: 20px;
   background: $profile-bg;
@@ -107,6 +109,9 @@ section#formHolder {
 .form {
   position: relative;
 }
+.form-1 .form-peice {
+  left: 3% !important;
+}
 .form .form-peice {
   background: #fff;
   min-height: 480px;
@@ -125,6 +130,10 @@ section#formHolder {
   transform: translateX(-100%);
   width: 100%;
   left: 0;
+}
+.form-1 form {
+  top: 45% !important;
+  left: 35% !important;
 }
 .form form {
   padding: 0 40px;
