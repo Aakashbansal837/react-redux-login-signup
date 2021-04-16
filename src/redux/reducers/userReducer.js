@@ -2,6 +2,7 @@ const initialState = {
   users: [],
   emails: [],
   is_logged_in: false,
+  view_profile: false,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -21,6 +22,16 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         is_logged_in: false,
+      };
+    case "VIEW_PROFILE":
+      return {
+        ...state,
+        view_profile: true,
+      };
+    case "CLOSE_PROFILE":
+      return {
+        ...state,
+        view_profile: false,
       };
     default:
       return state;
