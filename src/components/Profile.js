@@ -1,11 +1,14 @@
 import React from "react";
+import { connect } from "react-redux";
+import { signOutUser } from "../redux/actions/userAction";
+import { showSnackbar } from "../redux/actions/snackbarAction";
 
-const Profile = () => {
+const Profile = (props) => {
   const [focusInput, setFocusInput] = React.useState(false);
 
   // Reload page
   const logoutClicked = () => {
-    window.location.href = "/";
+    props.signOutUser();
   };
 
   const validateInput = () => {
@@ -141,4 +144,12 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+const mapStateToProps = (state) => ({
+  is_logged_in: state.user.is_logged_in,
+});
+const mapDispatchToProps = {
+  signOutUser,
+  showSnackbar,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
