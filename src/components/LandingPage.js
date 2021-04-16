@@ -34,7 +34,8 @@ const LandingPage = () => {
         .classList.add("switched");
 
       setTimeout(function () {
-        window.document.querySelector(".signup, .login").style.display = "none";
+        window.document.querySelector(".signup, .login , .form").style.display =
+          "none";
       }, 700);
       setTimeout(function () {
         window.document.querySelector(".brand").classList.add("active");
@@ -48,9 +49,6 @@ const LandingPage = () => {
       setTimeout(function () {
         window.document.querySelector(".success-msg a").classList.add("active");
       }, 1050);
-      setTimeout(function () {
-        window.document.querySelector(".form").style.display = "none";
-      }, 700);
     }
   };
 
