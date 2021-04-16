@@ -3,6 +3,7 @@ import React from "react";
 const SignIn = () => {
   // true if signIn , false if signup
   const [loginView, setLoginView] = React.useState(true);
+  // label focus
   const [focusInput, setFocusInput] = React.useState(false);
 
   // error states
@@ -18,8 +19,47 @@ const SignIn = () => {
     });
   };
 
-  // Form validation
-  const ValidateForm = () => {
+  // Form submit
+  const submitForm = () => {
+    if (
+      usernameError === true ||
+      emailError === true ||
+      passwordError === true ||
+      passConfirm === true
+    ) {
+      document.querySelector(".name, .email, .pass, .passConfirm").blur();
+    } else {
+      window.document
+        .querySelector(".signup, .login")
+        .classList.add("switched");
+
+      setTimeout(function () {
+        window.document.querySelector(".signup, .login").style.display = "none";
+      }, 700);
+      setTimeout(function () {
+        window.document.querySelector(".brand").classList.add("active");
+      }, 300);
+      setTimeout(function () {
+        window.document.querySelector(".heading").classList.add("active");
+      }, 600);
+      setTimeout(function () {
+        window.document.querySelector(".success-msg p").classList.add("active");
+      }, 900);
+      setTimeout(function () {
+        window.document.querySelector(".success-msg a").classList.add("active");
+      }, 1050);
+      setTimeout(function () {
+        window.document.querySelector(".form").style.display = "none";
+      }, 700);
+    }
+  };
+
+  // Reload page
+  const reloadPage = () => {
+    window.location.reload();
+  };
+
+  const validateInput = () => {
     document.querySelector("input").blur(function () {
       // User Name
       if (document.querySelector(this).classList.contains("name")) {
@@ -132,54 +172,8 @@ const SignIn = () => {
         document.querySelector(this).siblings("label").removeClass("active");
       }
     });
-  };
-
-  // Form submit
-  const submitForm = () => {
-    document.querySelector("form.signup-form").submit(function (event) {
-      event.preventDefault();
-
-      if (
-        usernameError == true ||
-        emailError == true ||
-        passwordError == true ||
-        passConfirm == true
-      ) {
-        document.querySelector(".name, .email, .pass, .passConfirm").blur();
-      } else {
-        document.querySelector(".signup, .login").classList.add("switched");
-
-        setTimeout(function () {
-          document.querySelector(".signup, .login").hide();
-        }, 700);
-        setTimeout(function () {
-          document.querySelector(".brand").classList.add("active");
-        }, 300);
-        setTimeout(function () {
-          document.querySelector(".heading").classList.add("active");
-        }, 600);
-        setTimeout(function () {
-          document.querySelector(".success-msg p").classList.add("active");
-        }, 900);
-        setTimeout(function () {
-          document.querySelector(".success-msg a").classList.add("active");
-        }, 1050);
-        setTimeout(function () {
-          document.querySelector(".form").hide();
-        }, 700);
-      }
-    });
-  };
-
-  // Reload page
-  const reloadPage = () => {
-    document.querySelector("a.profile").addEventListener("click", function () {
-      window.location.reload(true);
-    });
-  };
-
-  const onInputBlur = () => {
     if (true) {
+      setFocusInput(false);
     } else {
       setFocusInput(false);
     }
@@ -192,25 +186,25 @@ const SignIn = () => {
           {/* <!-- Brand Box --> */}
           <div className="col-sm-6 brand">
             <a href="#" className="logo">
-              Brand Name
+              Made By
               {/* <span>.</span> */}
             </a>
 
             <div className="heading">
               <h2>Aakash</h2>
-              <p>Your Right Choice</p>
+              <p> ( SignUp / SignIn ) via Redux</p>
             </div>
 
             <div className="success-msg">
               <p>Great! You are one of our members now</p>
-              <a href="#" className="profile">
+              <a href="#" className="profile" onClick={() => reloadPage()}>
                 Your Profile
               </a>
             </div>
           </div>
 
           {/* <!-- Form Box --> */}
-          <div className="col-sm-6 form">
+          <div className="col-sm-10 col-md-6 form">
             {/* <!-- Login Form --> */}
             <div
               className={"login form-peice" + (loginView ? " " : " switched")}
@@ -225,7 +219,7 @@ const SignIn = () => {
                   </label>
                   <input
                     onFocus={() => setFocusInput(true)}
-                    onBlur={() => onInputBlur()}
+                    onBlur={() => validateInput()}
                     type="email"
                     name="loginemail"
                     id="loginemail"
@@ -242,7 +236,7 @@ const SignIn = () => {
                   </label>
                   <input
                     onFocus={() => setFocusInput(true)}
-                    onBlur={() => onInputBlur()}
+                    onBlur={() => validateInput()}
                     type="password"
                     name="loginPassword"
                     id="loginPassword"
@@ -252,9 +246,8 @@ const SignIn = () => {
 
                 <div className="CTA">
                   <input
-                    onFocus={() => setFocusInput(true)}
-                    onBlur={() => onInputBlur()}
-                    type="submit"
+                    onClick={() => submitForm()}
+                    type="button"
                     value="Login"
                   />
                   <a onClick={() => setLoginView(false)} className="switch">
@@ -276,7 +269,7 @@ const SignIn = () => {
                   </label>
                   <input
                     onFocus={() => setFocusInput(true)}
-                    onBlur={() => onInputBlur()}
+                    onBlur={() => validateInput()}
                     type="text"
                     name="username"
                     id="name"
@@ -291,7 +284,7 @@ const SignIn = () => {
                   </label>
                   <input
                     onFocus={() => setFocusInput(true)}
-                    onBlur={() => onInputBlur()}
+                    onBlur={() => validateInput()}
                     type="email"
                     name="emailAdress"
                     id="email"
@@ -306,7 +299,7 @@ const SignIn = () => {
                   </label>
                   <input
                     onFocus={() => setFocusInput(true)}
-                    onBlur={() => onInputBlur()}
+                    onBlur={() => validateInput()}
                     type="text"
                     name="phone"
                     id="phone"
@@ -319,7 +312,7 @@ const SignIn = () => {
                   </label>
                   <input
                     onFocus={() => setFocusInput(true)}
-                    onBlur={() => onInputBlur()}
+                    onBlur={() => validateInput()}
                     type="password"
                     name="password"
                     id="password"
@@ -337,7 +330,7 @@ const SignIn = () => {
                   </label>
                   <input
                     onFocus={() => setFocusInput(true)}
-                    onBlur={() => onInputBlur()}
+                    onBlur={() => validateInput()}
                     type="password"
                     name="passwordCon"
                     id="passwordCon"
@@ -348,9 +341,8 @@ const SignIn = () => {
 
                 <div className="CTA">
                   <input
-                    onFocus={() => setFocusInput(true)}
-                    onBlur={() => onInputBlur()}
-                    type="submit"
+                    onClick={() => submitForm()}
+                    type="button"
                     value="Signup Now"
                     id="submit"
                   />
