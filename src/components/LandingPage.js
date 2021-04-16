@@ -7,27 +7,9 @@ const LandingPage = () => {
   // true if signIn , false if signup
   const [loginView, setLoginView] = React.useState(true);
 
-  // error states
-  const [usernameError, setUserNameError] = React.useState(false);
-  const [emailError, setEmailError] = React.useState(false);
-  const [passwordError, setPasswordError] = React.useState(false);
-  const [passConfirm, setPassConfirm] = React.useState(false);
-
-  // Label effect
-  const labelEffect = () => {
-    document.querySelector("input").focus(function () {
-      document.querySelector(this).siblings("label").classList.add("active");
-    });
-  };
-
   // Form submit
-  const activateProfile = () => {
-    if (
-      usernameError === true ||
-      emailError === true ||
-      passwordError === true ||
-      passConfirm === true
-    ) {
+  const activateProfile = (error) => {
+    if (error) {
       document.querySelector(".name, .email, .pass, .passConfirm").blur();
     } else {
       window.document
