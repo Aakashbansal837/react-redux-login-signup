@@ -6,25 +6,26 @@ import { showSnackbar } from "../redux/actions/snackbarAction";
 const Profile = (props) => {
   const [focusInput, setFocusInput] = React.useState(false);
 
+  const [email, setEmail] = React.useState(false);
+  const [userName, setUserName] = React.useState(false);
+  const [password, setPassword] = React.useState(false);
+  const [image, setimage] = React.useState(false);
+
   // Reload page
   const logoutClicked = () => {
     props.signOutUser();
   };
 
-  const validateInput = () => {
-    if (true) {
+  const updateLabelFocus = () => {
+    if (email == "" && password == "" && userName == "") {
       setFocusInput(false);
     } else {
-      setFocusInput(false);
+      setFocusInput(true);
     }
   };
 
   const submitForm = () => {
     logoutClicked();
-    // props.activateProfile();
-  };
-  const setLoginView = (value) => {
-    // props.setLoginView(value);
   };
 
   return (
@@ -40,7 +41,7 @@ const Profile = (props) => {
                   </label>
                   <input
                     onFocus={() => setFocusInput(true)}
-                    onBlur={() => validateInput()}
+                    onBlur={() => updateLabelFocus()}
                     type="text"
                     name="username"
                     id="name"
@@ -55,7 +56,7 @@ const Profile = (props) => {
                   </label>
                   <input
                     onFocus={() => setFocusInput(true)}
-                    onBlur={() => validateInput()}
+                    onBlur={() => updateLabelFocus()}
                     type="email"
                     name="emailAdress"
                     id="email"
@@ -70,7 +71,7 @@ const Profile = (props) => {
                   </label>
                   <input
                     onFocus={() => setFocusInput(true)}
-                    onBlur={() => validateInput()}
+                    onBlur={() => updateLabelFocus()}
                     type="text"
                     name="phone"
                     id="phone"
@@ -86,7 +87,7 @@ const Profile = (props) => {
                   </label>
                   <input
                     onFocus={() => setFocusInput(true)}
-                    onBlur={() => validateInput()}
+                    onBlur={() => updateLabelFocus()}
                     type="password"
                     name="password"
                     id="password"
@@ -104,7 +105,7 @@ const Profile = (props) => {
                   </label>
                   <input
                     onFocus={() => setFocusInput(true)}
-                    onBlur={() => validateInput()}
+                    onBlur={() => updateLabelFocus()}
                     type="password"
                     name="passwordCon"
                     id="passwordCon"
