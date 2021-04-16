@@ -1,28 +1,3 @@
-body {
-  font-family: $font-family;
-  background: #f7edd5;
-}
-
-.container {
-  max-width: 900px;
-}
-
-a {
-  display: inline-block;
-  text-decoration: none;
-}
-
-input {
-  outline: none !important;
-}
-
-h1 {
-  text-align: center;
-  text-transform: uppercase;
-  margin-bottom: 40px;
-  font-weight: 700;
-}
-
 section#formHolder {
   padding: 50px 0;
 }
@@ -240,23 +215,6 @@ section#formHolder {
   transition: all 0.3s;
 }
 .form form .CTA a.switch:hover {
-  color: #f95959;
-}
-
-footer {
-  text-align: center;
-}
-footer p {
-  color: #777;
-}
-footer p a,
-footer p a:focus {
-  color: #b8b09f;
-  transition: all 0.3s;
-  text-decoration: none !important;
-}
-footer p a:hover,
-footer p a:focus:hover {
   color: #f95959;
 }
 
