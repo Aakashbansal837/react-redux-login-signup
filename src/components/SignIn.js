@@ -131,7 +131,7 @@ const SignIn = (props) => {
   };
 
   const submitForm = () => {
-    props.submitForm();
+    props.activateProfile();
   };
   const setLoginView = (value) => {
     props.setLoginView(value);
