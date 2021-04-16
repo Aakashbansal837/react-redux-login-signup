@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { createNewUser } from "../redux/actions/userAction";
+import { showSnackbar } from "../redux/actions/snackbarAction";
 
 const SignUp = (props) => {
   // user State
@@ -12,28 +13,53 @@ const SignUp = (props) => {
   // label focus
   const [focusInput, setFocusInput] = React.useState(false);
 
-  // error states
-  const [usernameError, setUserNameError] = React.useState("");
-  const [emailError, setEmailError] = React.useState("");
-  const [passwordError, setPasswordError] = React.useState("");
+  useEffect(() => {
+    if (props.is_logged_in) {
+      props.activateProfile();
+    }
+  }, [props.is_logged_in]);
 
   const updateLabelFocus = () => {
-    if (email == "" && password == "") {
+    if (email == "" && password == "" && userName == "" && confirmPassword) {
       setFocusInput(false);
     } else {
       setFocusInput(true);
     }
   };
 
+  function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+
   const submitForm = () => {
-    let data = {
-      userName,
-      email,
-      password,
-    };
-    console.log("data :", data);
-    props.createNewUser(data);
-    // props.activateProfile();
+    if (userName === "") {
+      props.showSnackbar({ message: "EMPTY USERNAME", variant: "error" });
+    } else if (email === "") {
+      props.showSnackbar({ message: "EMPTY EMAIL", variant: "error" });
+    } else if (!validateEmail(email)) {
+      props.showSnackbar({ message: "INVALID EMAIL", variant: "error" });
+    } else if (password === "") {
+      props.showSnackbar({ message: "EMPTY PASSWORD", variant: "error" });
+    } else if (password !== confirmPassword) {
+      props.showSnackbar({
+        message: "PASSWORD MATCH FAILED",
+        variant: "error",
+      });
+    } else if (password.length < 6) {
+      props.showSnackbar({
+        message: "YOUR PASSWORD IS TOO WEEK",
+        variant: "warning",
+      });
+    } else {
+      let data = {
+        userName,
+        email,
+        password,
+      };
+      console.log("data :", data);
+      props.createNewUser(data);
+    }
   };
   const setLoginView = (value) => {
     props.setLoginView(value);
@@ -128,10 +154,11 @@ const SignUp = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  userName: state.user.userName,
+  is_logged_in: state.user.is_logged_in,
 });
 const mapDispatchToProps = {
   createNewUser,
+  showSnackbar,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
