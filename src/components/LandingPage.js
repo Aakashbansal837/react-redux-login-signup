@@ -35,16 +35,11 @@ const LandingPage = () => {
     }
   };
 
-  // Reload page
-  const reloadPage = () => {
-    window.location.reload();
-  };
-
   return (
     <div className="container">
       <section id="formHolder">
         <div className="row">
-          <Brand reloadPage={reloadPage} />
+          <Brand />
           <div className="col-sm-10 col-md-6 form">
             <SignIn
               loginView={loginView}
