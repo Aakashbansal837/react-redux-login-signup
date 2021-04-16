@@ -15,7 +15,7 @@ const Brand = (props) => {
 
       <div className="success-msg">
         <p>Great! You are one of our members now</p>
-        <a href="#" className="profile" onClick={() => props.reloadPage()}>
+        <a href="/profile" className="profile">
           Your Profile
         </a>
       </div>
