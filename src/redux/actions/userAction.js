@@ -1,9 +1,9 @@
 import store from "../store";
 
-export const createNewUser = (value) => (dispatch) => {
+export const createNewUser = (payload) => (dispatch) => {
   let emails = store.getState().user.emails ? store.getState().user.emails : [];
   let users = store.getState().user.users;
-  let email = value.email;
+  let email = payload.email;
 
   console.log({ emails });
   if (emails.indexOf(email) !== -1) {
@@ -13,7 +13,7 @@ export const createNewUser = (value) => (dispatch) => {
       variant: "warning",
     });
   } else {
-    users[email] = value;
+    users[email] = payload;
     emails.push(email);
     let data = {
       emails: emails,
@@ -26,32 +26,29 @@ export const createNewUser = (value) => (dispatch) => {
     });
     dispatch({
       type: "NEW_USER",
-      value: data,
+      payload: data,
     });
-    dispatch({
-      type: "LOGIN_USER",
-    });
+    dispatch({ type: "LOGIN_USER", payload: payload });
   }
 };
 
-export const signInUser = (value) => (dispatch) => {
+export const signInUser = (payload) => (dispatch) => {
   let users = store.getState().user.users ? store.getState().user.users : {};
   let emails = store.getState().user.emails ? store.getState().user.emails : [];
-  let email = value.email;
-  let password = value.password;
+  let email = payload.email;
+  let password = payload.password;
 
   console.log({ emails });
 
   if (emails.indexOf(email) !== -1) {
     let user = users[email];
-    console.log("user :", user);
     if (user.password === password) {
       dispatch({
         type: "SHOW_SNACKBAR",
         message: "LOGIN SUCCESSFULL",
         variant: "success",
       });
-      dispatch({ type: "LOGIN_USER" });
+      dispatch({ type: "LOGIN_USER", payload: user });
     } else {
       dispatch({
         type: "SHOW_SNACKBAR",
@@ -68,7 +65,7 @@ export const signInUser = (value) => (dispatch) => {
   }
 };
 
-export const signOutUser = (value) => (dispatch) => {
+export const signOutUser = (payload) => (dispatch) => {
   dispatch({
     type: "SHOW_SNACKBAR",
     message: "USER LOGGED OUT",
@@ -77,7 +74,7 @@ export const signOutUser = (value) => (dispatch) => {
   dispatch({ type: "LOGOUT_USER" });
 };
 
-export const viewProfile = (value) => (dispatch) => {
+export const viewProfile = (payload) => (dispatch) => {
   dispatch({
     type: "SHOW_SNACKBAR",
     message: "SHOWING USER PROFILE",
@@ -86,6 +83,6 @@ export const viewProfile = (value) => (dispatch) => {
   dispatch({ type: "VIEW_PROFILE" });
 };
 
-export const closeProfile = (value) => (dispatch) => {
+export const closeProfile = (payload) => (dispatch) => {
   dispatch({ type: "CLOSE_PROFILE" });
 };
