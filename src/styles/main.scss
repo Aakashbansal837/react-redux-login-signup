@@ -53,7 +53,7 @@ section#formHolder {
 }
 .brand .heading {
   position: absolute;
-  top: 60%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
@@ -237,6 +237,10 @@ section#formHolder {
 @media (max-width: 768px) {
   .container {
     overflow: hidden;
+  }
+  .brand .heading {
+    top: 60%;
+    left: 50%;
   }
 
   .form-1 form {
