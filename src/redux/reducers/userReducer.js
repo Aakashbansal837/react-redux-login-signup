@@ -37,6 +37,11 @@ const userReducer = (state = initialState, action) => {
         is_logged_in: false,
         view_profile: false,
       };
+    case "UPDATE_USER":
+      return {
+        ...state,
+        users: action.payload,
+      };
     case "VIEW_PROFILE":
       return {
         ...state,
@@ -47,6 +52,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         view_profile: false,
       };
+
     default:
       return state;
   }
