@@ -6,7 +6,8 @@ section#formHolder {
 }
 .brand {
   padding: 20px;
-  background: $profile-bg;
+  // background: $profile-bg;
+  background-image: url("../images/background.jpg");
   background-size: cover;
   background-position: center center;
   color: #fff;
@@ -19,6 +20,12 @@ section#formHolder {
 .brand.active {
   flex: 0 0 100%;
   max-width: 100%;
+}
+.brand-image {
+  background-image: url("../images/flower.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 .brand::before {
   content: "";
@@ -46,7 +53,7 @@ section#formHolder {
 }
 .brand .heading {
   position: absolute;
-  top: 50%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
