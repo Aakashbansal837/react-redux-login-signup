@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { signOutUser } from "../redux/actions/userAction";
 import { showSnackbar } from "../redux/actions/snackbarAction";
@@ -6,15 +6,22 @@ import { showSnackbar } from "../redux/actions/snackbarAction";
 const Profile = (props) => {
   const [focusInput, setFocusInput] = React.useState(false);
 
-  const [email, setEmail] = React.useState(false);
-  const [userName, setUserName] = React.useState(false);
-  const [password, setPassword] = React.useState(false);
-  const [image, setimage] = React.useState(false);
+  const [email, setEmail] = React.useState(props.user.email);
+  const [userName, setUserName] = React.useState(props.user.userName);
+  const [password, setPassword] = React.useState(props.user.password);
+  const [image, setImage] = React.useState(props.user.image);
+  const [dob, setDob] = React.useState(props.user.dob);
+  const [phone, setPhone] = React.useState(props.user.phone);
+  const [address, setAddress] = React.useState(props.user.address);
 
   // Reload page
   const logoutClicked = () => {
     props.signOutUser();
   };
+
+  useEffect(() => {
+    updateLabelFocus();
+  }, []);
 
   const updateLabelFocus = () => {
     if (email == "" && password == "" && userName == "") {
@@ -24,15 +31,47 @@ const Profile = (props) => {
     }
   };
 
+  const changeImage = (e) => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    const localImageUrl = window.URL.createObjectURL(file);
+    setImage(localImageUrl);
+  };
+
   const submitForm = () => {
-    logoutClicked();
+    // logoutClicked();
+
+    let data = {
+      userName,
+      email,
+      password,
+      image,
+      dob,
+      phone,
+      address,
+    };
+    console.log("data :", data);
   };
 
   return (
     <div className="container">
       <section id="formHolder">
         <div className="row">
-          <div className="col-sm-10 col-md-6 form form-1">
+          <div className="col-sm-6 d-md-none brand text-right">
+            <a
+              style={{ cursor: "pointer" }}
+              className="logo"
+              onClick={() => logoutClicked()}
+            >
+              Logout
+            </a>
+
+            <div className="heading">
+              <h2>Profile</h2>
+              <p> update your details here.</p>
+            </div>
+          </div>
+          <div className=" col-xs-12 col-sm-10 col-md-6 form form-1">
             <div className="signup form-peice">
               <form className="signup-form">
                 <div className="form-group">
@@ -42,6 +81,8 @@ const Profile = (props) => {
                   <input
                     onFocus={() => setFocusInput(true)}
                     onBlur={() => updateLabelFocus()}
+                    onChange={(e) => setUserName(e.target.value)}
+                    value={userName}
                     type="text"
                     name="username"
                     id="name"
@@ -57,6 +98,8 @@ const Profile = (props) => {
                   <input
                     onFocus={() => setFocusInput(true)}
                     onBlur={() => updateLabelFocus()}
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
                     type="email"
                     name="emailAdress"
                     id="email"
@@ -72,6 +115,8 @@ const Profile = (props) => {
                   <input
                     onFocus={() => setFocusInput(true)}
                     onBlur={() => updateLabelFocus()}
+                    onChange={(e) => setPhone(e.target.value)}
+                    value={phone}
                     type="text"
                     name="phone"
                     id="phone"
@@ -88,6 +133,8 @@ const Profile = (props) => {
                   <input
                     onFocus={() => setFocusInput(true)}
                     onBlur={() => updateLabelFocus()}
+                    onChange={(e) => setPassword(e.target.value)}
+                    value={password}
                     type="password"
                     name="password"
                     id="password"
@@ -101,16 +148,19 @@ const Profile = (props) => {
                     className={focusInput ? "active" : ""}
                     htmlFor="passwordCon"
                   >
-                    Confirm Password
+                    Image
                   </label>
                   <input
                     onFocus={() => setFocusInput(true)}
                     onBlur={() => updateLabelFocus()}
-                    type="password"
+                    onChange={(e) => changeImage(e)}
+                    accept=".jpg, .jpeg, .png"
+                    type="file"
                     name="passwordCon"
                     id="passwordCon"
                     className="passConfirm"
                   />
+                  <img src={image} />
                   <span className="error"></span>
                 </div>
 
@@ -125,7 +175,7 @@ const Profile = (props) => {
               </form>
             </div>
           </div>
-          <div className="col-sm-6 brand text-right">
+          <div className="col-sm-6 d-none d-md-block brand text-right">
             <a
               style={{ cursor: "pointer" }}
               className="logo"
@@ -147,6 +197,7 @@ const Profile = (props) => {
 
 const mapStateToProps = (state) => ({
   is_logged_in: state.user.is_logged_in,
+  user: state.user.currentUser,
 });
 const mapDispatchToProps = {
   signOutUser,
