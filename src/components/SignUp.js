@@ -57,7 +57,7 @@ const SignUp = (props) => {
         email,
         password,
       };
-      console.log("data :", data);
+      // console.log("data :", data);
       props.createNewUser(data);
     }
   };
