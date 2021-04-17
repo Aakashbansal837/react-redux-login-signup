@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { signOutUser } from "../redux/actions/userAction";
 import { showSnackbar } from "../redux/actions/snackbarAction";
+import Flower from "../images/flower.jpg";
 
 const Profile = (props) => {
   const [focusInput, setFocusInput] = React.useState(false);
@@ -36,6 +37,10 @@ const Profile = (props) => {
     const file = e.target.files[0];
     const localImageUrl = window.URL.createObjectURL(file);
     setImage(localImageUrl);
+    showSnackbar({
+      message: "IMAGE UPDATED IN BRAND BACKGROUND",
+      variant: "info",
+    });
   };
 
   const submitForm = () => {
@@ -57,7 +62,10 @@ const Profile = (props) => {
     <div className="container">
       <section id="formHolder">
         <div className="row">
-          <div className="col-sm-6 d-md-none brand text-right">
+          <div
+            className="col-sm-6 d-md-none brand text-right brand-image"
+            style={{ backgroundImage: "url(" + (image ? image : Flower) + ")" }}
+          >
             <a
               style={{ cursor: "pointer" }}
               className="logo"
@@ -68,7 +76,7 @@ const Profile = (props) => {
 
             <div className="heading">
               <h2>Profile</h2>
-              <p> update your details here.</p>
+              <p style={{ textTransform: "lowercase" }}> {email}</p>
             </div>
           </div>
           <div className=" col-xs-12 col-sm-10 col-md-6 form form-1">
@@ -160,7 +168,6 @@ const Profile = (props) => {
                     id="passwordCon"
                     className="passConfirm"
                   />
-                  <img src={image} />
                   <span className="error"></span>
                 </div>
 
@@ -175,7 +182,10 @@ const Profile = (props) => {
               </form>
             </div>
           </div>
-          <div className="col-sm-6 d-none d-md-block brand text-right">
+          <div
+            className="col-sm-6 d-none d-md-block brand text-right brand-image"
+            style={{ backgroundImage: "url(" + (image ? image : Flower) + ")" }}
+          >
             <a
               style={{ cursor: "pointer" }}
               className="logo"
@@ -186,7 +196,7 @@ const Profile = (props) => {
 
             <div className="heading">
               <h2>Profile</h2>
-              <p> update your details here.</p>
+              <p style={{ textTransform: "lowercase" }}> {email}</p>
             </div>
           </div>
         </div>
