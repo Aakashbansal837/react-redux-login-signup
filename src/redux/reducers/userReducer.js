@@ -1,20 +1,9 @@
 const initialState = {
-  users: {
-    "abc@abc.com": {
-      userName: "aakash",
-      email: "abc@abc.com",
-      password: "abc",
-    },
-  },
-  currentUser: {
-    userName: "aakash",
-    email: "abc@abc.com",
-    password: "abc",
-    image: "",
-  },
-  emails: ["abc@abc.com"],
+  users: {},
+  currentUser: {},
+  emails: [],
   is_logged_in: false,
-  view_profile: true,
+  view_profile: false,
 };
 
 const userReducer = (state = initialState, action) => {
