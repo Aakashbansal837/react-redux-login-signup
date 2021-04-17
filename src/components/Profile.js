@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { signOutUser, updateUserData } from "../redux/actions/userAction";
 import { showSnackbar } from "../redux/actions/snackbarAction";
 import Flower from "../images/flower.jpg";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
 
 const Profile = (props) => {
   const [focusInput, setFocusInput] = React.useState(false);
@@ -55,7 +57,6 @@ const Profile = (props) => {
   const changeImage = (e) => {
     e.preventDefault();
     const file = e.target.files[0];
-    console.log(file);
     if (file) {
       const localImageUrl = window.URL.createObjectURL(file);
       setImage(localImageUrl);
@@ -69,13 +70,14 @@ const Profile = (props) => {
   };
 
   const submitForm = () => {
+    // console.log("phone", phone);
     if (userName === "") {
       props.showSnackbar({ message: "EMPTY USERNAME", variant: "error" });
     } else if (dob === "") {
       props.showSnackbar({ message: "EMPTY DATE OF BIRTH", variant: "error" });
     } else if (phone === "") {
       props.showSnackbar({ message: "EMPTY PHONE NUMBER", variant: "error" });
-    } else if (phone.length > 12 || phone.length < 8) {
+    } else if (phone.length > 14 || phone.length < 8) {
       props.showSnackbar({ message: "INVALID PHONE NUMBER", variant: "error" });
     } else if (address === "") {
       props.showSnackbar({ message: "EMPTY ADDRESS", variant: "error" });
@@ -89,7 +91,6 @@ const Profile = (props) => {
         phone,
         address,
       };
-      console.log("data :", data);
       props.updateUserData(data);
     }
   };
@@ -154,7 +155,12 @@ const Profile = (props) => {
                   <label className={focusInput ? "active" : ""} htmlFor="phone">
                     Phone Number - <small>Optional</small>
                   </label>
-                  <input
+                  <PhoneInput
+                    placeholder="Enter phone number"
+                    value={phone}
+                    onChange={setPhone}
+                  />
+                  {/* <input
                     onFocus={() => setFocusInput(true)}
                     onBlur={() => updateLabelFocus()}
                     onChange={(e) => setPhone(e.target.value)}
@@ -162,7 +168,7 @@ const Profile = (props) => {
                     type="text"
                     name="phone"
                     id="phone"
-                  />
+                  /> */}
                 </div>
 
                 <div className="form-group">
