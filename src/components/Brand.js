@@ -20,7 +20,11 @@ const Brand = (props) => {
 
       <div className="success-msg">
         <p>Great! You are one of our members now</p>
-        <a onClick={() => showProfile()} className="profile">
+        <a
+          style={{ cursor: "pointer" }}
+          onClick={() => showProfile()}
+          className="profile"
+        >
           Your Profile
         </a>
       </div>
