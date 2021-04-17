@@ -1,19 +1,33 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { signOutUser } from "../redux/actions/userAction";
+import { signOutUser, updateUserData } from "../redux/actions/userAction";
 import { showSnackbar } from "../redux/actions/snackbarAction";
 import Flower from "../images/flower.jpg";
 
 const Profile = (props) => {
   const [focusInput, setFocusInput] = React.useState(false);
 
-  const [email, setEmail] = React.useState(props.user.email);
-  const [userName, setUserName] = React.useState(props.user.userName);
-  const [password, setPassword] = React.useState(props.user.password);
-  const [image, setImage] = React.useState(props.user.image);
-  const [dob, setDob] = React.useState(props.user.dob);
-  const [phone, setPhone] = React.useState(props.user.phone);
-  const [address, setAddress] = React.useState(props.user.address);
+  const [email, setEmail] = React.useState(
+    props.user.email ? props.user.email : ""
+  );
+  const [userName, setUserName] = React.useState(
+    props.user.userName ? props.user.userName : ""
+  );
+  const [password, setPassword] = React.useState(
+    props.user.password ? props.user.password : ""
+  );
+  const [image, setImage] = React.useState(
+    props.user.image ? props.user.image : ""
+  );
+  const [dob, setDob] = React.useState(
+    props.user.dob ? props.user.dob : "" ? props.user.dob : ""
+  );
+  const [phone, setPhone] = React.useState(
+    props.user.phone ? props.user.phone : ""
+  );
+  const [address, setAddress] = React.useState(
+    props.user.address ? props.user.address : ""
+  );
 
   // Reload page
   const logoutClicked = () => {
@@ -25,7 +39,13 @@ const Profile = (props) => {
   }, []);
 
   const updateLabelFocus = () => {
-    if (email == "" && password == "" && userName == "") {
+    if (
+      userName == "" &&
+      address == "" &&
+      phone == "" &&
+      image == "" &&
+      dob == ""
+    ) {
       setFocusInput(false);
     } else {
       setFocusInput(true);
@@ -35,8 +55,13 @@ const Profile = (props) => {
   const changeImage = (e) => {
     e.preventDefault();
     const file = e.target.files[0];
-    const localImageUrl = window.URL.createObjectURL(file);
-    setImage(localImageUrl);
+    console.log(file);
+    if (file) {
+      const localImageUrl = window.URL.createObjectURL(file);
+      setImage(localImageUrl);
+    } else {
+      setImage("");
+    }
     showSnackbar({
       message: "IMAGE UPDATED IN BRAND BACKGROUND",
       variant: "info",
@@ -44,18 +69,29 @@ const Profile = (props) => {
   };
 
   const submitForm = () => {
-    // logoutClicked();
-
-    let data = {
-      userName,
-      email,
-      password,
-      image,
-      dob,
-      phone,
-      address,
-    };
-    console.log("data :", data);
+    if (userName === "") {
+      props.showSnackbar({ message: "EMPTY USERNAME", variant: "error" });
+    } else if (dob === "") {
+      props.showSnackbar({ message: "EMPTY DATE OF BIRTH", variant: "error" });
+    } else if (phone === "") {
+      props.showSnackbar({ message: "EMPTY PHONE NUMBER", variant: "error" });
+    } else if (phone.length > 12 || phone.length < 8) {
+      props.showSnackbar({ message: "INVALID PHONE NUMBER", variant: "error" });
+    } else if (address === "") {
+      props.showSnackbar({ message: "EMPTY ADDRESS", variant: "error" });
+    } else {
+      let data = {
+        userName,
+        email,
+        password,
+        image,
+        dob,
+        phone,
+        address,
+      };
+      console.log("data :", data);
+      props.updateUserData(data);
+    }
   };
 
   return (
@@ -96,24 +132,22 @@ const Profile = (props) => {
                     id="name"
                     className="name"
                   />
-                  <span className="error"></span>
                 </div>
 
                 <div className="form-group">
                   <label className={focusInput ? "active" : ""} htmlFor="email">
-                    Email Adderss
+                    Date Of Birth
                   </label>
                   <input
                     onFocus={() => setFocusInput(true)}
                     onBlur={() => updateLabelFocus()}
-                    onChange={(e) => setEmail(e.target.value)}
-                    value={email}
-                    type="email"
-                    name="emailAdress"
-                    id="email"
-                    className="email"
+                    onChange={(e) => setDob(e.target.value)}
+                    value={dob}
+                    type="date"
+                    name="dateOfBirth"
+                    id="dateOfBirth"
+                    className="dateOfBirth"
                   />
-                  <span className="error"></span>
                 </div>
 
                 <div className="form-group">
@@ -134,26 +168,6 @@ const Profile = (props) => {
                 <div className="form-group">
                   <label
                     className={focusInput ? "active" : ""}
-                    htmlFor="password"
-                  >
-                    Password
-                  </label>
-                  <input
-                    onFocus={() => setFocusInput(true)}
-                    onBlur={() => updateLabelFocus()}
-                    onChange={(e) => setPassword(e.target.value)}
-                    value={password}
-                    type="password"
-                    name="password"
-                    id="password"
-                    className="pass"
-                  />
-                  <span className="error"></span>
-                </div>
-
-                <div className="form-group">
-                  <label
-                    className={focusInput ? "active" : ""}
                     htmlFor="passwordCon"
                   >
                     Image
@@ -168,7 +182,22 @@ const Profile = (props) => {
                     id="passwordCon"
                     className="passConfirm"
                   />
-                  <span className="error"></span>
+                </div>
+
+                <div className="form-group">
+                  <label className={focusInput ? "active" : ""} htmlFor="email">
+                    Adderss
+                  </label>
+                  <input
+                    onFocus={() => setFocusInput(true)}
+                    onBlur={() => updateLabelFocus()}
+                    onChange={(e) => setAddress(e.target.value)}
+                    value={address}
+                    type="text"
+                    name="address"
+                    id="address"
+                    className="address"
+                  />
                 </div>
 
                 <div className="CTA">
@@ -212,6 +241,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   signOutUser,
   showSnackbar,
+  updateUserData,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
