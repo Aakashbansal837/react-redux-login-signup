@@ -5,7 +5,7 @@ export const createNewUser = (payload) => (dispatch) => {
   let users = store.getState().user.users;
   let email = payload.email;
 
-  console.log({ emails });
+  // console.log({ emails });
   if (emails.indexOf(email) !== -1) {
     dispatch({
       type: "SHOW_SNACKBAR",
@@ -38,7 +38,7 @@ export const signInUser = (payload) => (dispatch) => {
   let email = payload.email;
   let password = payload.password;
 
-  console.log({ emails });
+  // console.log({ emails });
 
   if (emails.indexOf(email) !== -1) {
     let user = users[email];
