@@ -114,6 +114,9 @@ const Profile = (props) => {
             <div className="heading">
               <h2>Profile</h2>
               <p style={{ textTransform: "lowercase" }}> {email}</p>
+              <p style={{ textTransform: "lowercase" }}>
+                upload image for background update
+              </p>
             </div>
           </div>
           <div className=" col-xs-12 col-sm-10 col-md-6 form form-1">
@@ -232,6 +235,9 @@ const Profile = (props) => {
             <div className="heading">
               <h2>Profile</h2>
               <p style={{ textTransform: "lowercase" }}> {email}</p>
+              <p style={{ textTransform: "lowercase" }}>
+                upload image for background update
+              </p>
             </div>
           </div>
         </div>
