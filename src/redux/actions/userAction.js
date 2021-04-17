@@ -86,3 +86,18 @@ export const viewProfile = (payload) => (dispatch) => {
 export const closeProfile = (payload) => (dispatch) => {
   dispatch({ type: "CLOSE_PROFILE" });
 };
+
+export const updateUserData = (payload) => (dispatch) => {
+  let users = store.getState().user.users ? store.getState().user.users : {};
+
+  let data = payload;
+  let email = payload.email;
+
+  users[email] = data;
+  dispatch({ type: "UPDATE_USER", payload: users });
+  dispatch({
+    type: "SHOW_SNACKBAR",
+    message: "USER DETAILS UPDATED",
+    variant: "success",
+  });
+};
