@@ -15,7 +15,7 @@ const Brand = (props) => {
 
       <div className="heading">
         <h2>Aakash</h2>
-        <p> ( SignUp / SignIn ) via Redux</p>
+        <p> ( Login / SignUp ) via Redux</p>
       </div>
 
       <div className="success-msg">
